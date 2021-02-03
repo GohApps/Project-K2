@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="note"
+            type="com.gustav.projectk2.database.Note" />
+        <variable
+            name="clickListener"
+            type="com.gustav.projectk2.ItemClickLIstener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:contentPadding="8dp"
+        app:cardBackgroundColor="@color/teal_200"
+        app:cardCornerRadius="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_weight="0"
+            android:layout_height="wrap_content"
+            android:text="jfjfjf"
+            app:noteNameString="@{note}">
+
+        </TextView>
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:singleLine="false">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/myChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="started 2021-01-05 05:00"
+                    >
+
+                </com.google.android.material.chip.Chip>
+
+                <com.google.android.material.chip.Chip
+                    style="@style/myChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="last edited 2021-01-25 21:00"
+                    >
+
+                </com.google.android.material.chip.Chip>
+            </com.google.android.material.chip.ChipGroup>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{() -> clickListener.onClick(note.noteId)}"
+            >
+
+        </FrameLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

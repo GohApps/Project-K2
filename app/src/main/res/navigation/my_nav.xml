@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/SPLASH">
+
+    <fragment
+        android:id="@+id/SPLASH"
+        android:name="com.gustav.projectk2.SPLASH"
+        android:label="fragment_s_p_l_a_s_h"
+        tools:layout="@layout/fragment_s_p_l_a_s_h" >
+        <action
+            android:id="@+id/action_SPLASH_to_viewPagerFragment"
+            app:destination="@id/firstLaunchFragment"
+            app:popUpTo="@id/SPLASH"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_SPLASH_to_homeFragment"
+            app:destination="@id/homeViewPagerFragment"
+            app:popUpTo="@id/SPLASH"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/firstLaunchFragment"
+        android:name="com.gustav.projectk2.onBoarding.boardingscreens.OnboardingViewPagerFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_view_pager" >
+        <action
+            android:id="@+id/action_viewPagerFragment_to_homeFragment"
+            app:destination="@id/homeViewPagerFragment"
+            app:popUpTo="@id/firstLaunchFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeViewPagerFragment"
+        android:name="com.gustav.projectk2.homeScreens.HomeViewPagerFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeViewPagerFragment_to_newTemplateFragment"
+            app:destination="@id/newTemplateFragment" />
+        <action
+            android:id="@+id/action_homeViewPagerFragment_to_templatePreviewActionsFragment"
+            app:destination="@id/templatePreviewActionsFragment" />
+        <action
+            android:id="@+id/action_homeViewPagerFragment_to_editNoteFragment"
+            app:destination="@id/editNoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newTemplateFragment"
+        android:name="com.gustav.projectk2.homeScreens.templateCreator.NewTemplateFragment"
+        android:label="fragment_new_template"
+        tools:layout="@layout/fragment_new_template" >
+
+        <action
+            android:id="@+id/action_newTemplateFragment_to_newEventFragment2"
+            app:destination="@id/newEventDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/newEventDialogFragment"
+        android:name="com.gustav.projectk2.homeScreens.templateCreator.NewTemplateEventFragment"
+        android:label="dialogfragment_new_event"
+        tools:layout="@layout/fragment_new_event" />
+    <dialog
+        android:id="@+id/templatePreviewActionsFragment"
+        android:name="com.gustav.projectk2.homeScreens.template.TemplatePreviewActionsFragment"
+        android:label="fragment_template_preview_actions"
+        tools:layout="@layout/fragment_template_preview_actions" />
+    <fragment
+        android:id="@+id/editNoteFragment"
+        android:name="com.gustav.projectk2.homeScreens.open_notes.EditNoteFragment"
+        android:label="fragment_edit_note"
+        tools:layout="@layout/fragment_edit_note" >
+        <argument
+            android:name="templateId"
+            app:argType="long" />
+    </fragment>
+</navigation>

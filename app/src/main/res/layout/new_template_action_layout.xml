@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="action"
+            type="com.gustav.projectk2.homeScreens.templateCreator.NewTemplateViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/koj"
+        tools:showIn="@layout/fragment_new_template"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:layout_gravity="end"
+        android:clipChildren="false">
+
+
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_height="48dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:id="@+id/newEvent"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/button_ripple_event"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ event"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="3dp"
+                android:textSize="@dimen/icon_text_size" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_height="48dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/saveTemplate"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:enabled="@{!action.templateName.toString().isEmpty() &amp;&amp; action.eventsLiveData.size()>0 }"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/button_ripple_save"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="save"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="3dp"
+                android:textSize="@dimen/icon_text_size" />
+        </FrameLayout>
+    </LinearLayout>
+</layout>

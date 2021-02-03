@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="newTemplateViewModel"
+            type="com.gustav.projectk2.homeScreens.templateCreator.NewTemplateViewModel" />
+    </data>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".homeScreens.templateCreator.NewTemplateFragment"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+    <EditText
+
+        android:layout_width="match_parent"
+        android:hint="Enter template name"
+        android:layout_height="wrap_content"
+        android:text="@={newTemplateViewModel.templateName}"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:layout_margin="8dp"
+
+        />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/additional_events"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:checked="@={newTemplateViewModel.additionalEvents}"
+            android:layout_height="wrap_content"
+            android:text="Additional events" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/flexible_time"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:checked="@={newTemplateViewModel.flexibleTime}"
+            android:layout_height="wrap_content"
+            android:text="Flexible timestamps" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventRvInCreator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:hideOnScroll="true"
+        app:backgroundTint="?attr/colorPrimary"
+
+        >
+
+
+        <include
+            android:id="@+id/action_layout"
+            layout="@layout/new_template_action_layout"
+            bind:action="@{newTemplateViewModel}"/>
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
