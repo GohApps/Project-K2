@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dark_grey">#202020</color>
+    <color name="tab_textcolor_dark">#FF5722</color>
+    <color name="def_text_color">#757575</color>
+
+
+
 </resources>

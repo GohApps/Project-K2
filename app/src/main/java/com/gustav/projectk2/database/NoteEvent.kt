@@ -14,14 +14,14 @@ data class NoteEvent (
         @ColumnInfo(name = "event_name")
         var eventName: String = "",
 
-        @ColumnInfo(name = "template_id")
+        @ColumnInfo(name = "note_id")
         var noteId: Long = 0,
 
         @ColumnInfo(name = "start_time_milli")
-        val startTimeMilli: Long = System.currentTimeMillis(),
+        var startTimeMilli: Long = 0,
 
         @ColumnInfo(name = "end_time_milli")
-        var endTimeMilli: Long = startTimeMilli,
+        var endTimeMilli: Long = 0,
 
         @ColumnInfo(name = "is_note")
         var isNote: Boolean = false,

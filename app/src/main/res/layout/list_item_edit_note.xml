@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+        <data>
+            <import type="android.view.View" />
+
+            <variable
+                name="noteEvent"
+                type="com.gustav.projectk2.database.NoteEvent" />
+            <variable
+                name="clickListener"
+                type="com.gustav.projectk2.EditNoteClickListener" />
+        </data>
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/myCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/eventName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:noteEventNameString="@{noteEvent}"
+                app:layout_constraintBottom_toTopOf="@+id/note_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/note_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Note"
+                android:onClick="@{(v) -> clickListener.onClicked(noteEvent.noteEventId, v)}"
+                android:visibility="@{noteEvent.isNote ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toTopOf="@+id/amount_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eventName" />
+
+            <EditText
+                android:id="@+id/amount_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Amount"
+                android:visibility="@{noteEvent.isAmount ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toTopOf="@+id/position_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/note_textview" />
+
+            <TextView
+                android:id="@+id/unit_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{noteEvent.unit}"
+                android:visibility="@{noteEvent.isAmount ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/amount_textview"
+                app:layout_constraintStart_toEndOf="@+id/amount_textview"
+                app:layout_constraintTop_toTopOf="@+id/amount_textview" />
+
+            <TextView
+                android:id="@+id/position_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Position WGS"
+                android:visibility="@{noteEvent.isPosition ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toTopOf="@+id/start_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/amount_textview" />
+
+            <Button
+                android:id="@+id/start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="start"
+                android:visibility="@{noteEvent.startStop ? View.VISIBLE : View.GONE}"
+                android:onClick="@{(v) -> clickListener.onClicked(noteEvent.noteEventId,v)}"
+                app:setStartEnabled="@{noteEvent}"
+                app:layout_constraintBottom_toTopOf="@+id/done"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="done"
+                app:setDoneEnabled="@{noteEvent}"
+                android:onClick="@{(v) -> clickListener.onClicked(noteEvent.noteEventId,v)}"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/start" />
+
+            <TextView
+                android:id="@+id/start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{(noteEvent.startStop &amp;&amp; noteEvent.startTimeMilli != 0) ? View.VISIBLE : View.GONE}"
+                app:setStartTime="@{noteEvent}"
+                app:layout_constraintBottom_toTopOf="@+id/done_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/position_textview" />
+
+            <TextView
+                android:id="@+id/done_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:setDoneTime="@{noteEvent}"
+                android:visibility="@{(noteEvent.endTimeMilli != 0) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/start_time" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>

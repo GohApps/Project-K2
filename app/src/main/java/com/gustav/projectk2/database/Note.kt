@@ -10,8 +10,14 @@ data class Note (
     @PrimaryKey(autoGenerate = true)
     var noteId: Long = 0L,
 
+    @ColumnInfo(name = "template_id")
+    var templateId: Long = 0,
+
     @ColumnInfo(name = "note_name")
     var noteName: String = "",
+
+    @ColumnInfo(name = "open")
+    var open: Boolean = true,
 
     @ColumnInfo(name = "template_flexible_time")
     var flexTime: Boolean = false,
@@ -23,9 +29,9 @@ data class Note (
     val startTimeMilli: Long = System.currentTimeMillis(),
 
     @ColumnInfo(name = "latest_edit_time_milli")
-    var latestEditTimeMilli: Long = startTimeMilli,
+    var latestEditTimeMilli: Long = 0,
 
     @ColumnInfo(name = "end_time_milli")
-    var endTimeMilli: Long = startTimeMilli
+    var endTimeMilli: Long = 0
 
 )

@@ -4,13 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.gustav.projectk2.database.NoteDatabaseDao
+import com.gustav.projectk2.database.DatabaseTemplateDao
+import com.gustav.projectk2.database.CreateNote
 import com.gustav.projectk2.database.Template
 import com.gustav.projectk2.database.TemplateEvent
-import kotlinx.coroutines.launch
 
-class TemplateViewModel(dataSource: NoteDatabaseDao) : ViewModel() {
+class TemplateViewModel(dataSource: DatabaseTemplateDao) : ViewModel() {
 
     var TAG = "GustavsMessage"
 
@@ -23,12 +22,24 @@ class TemplateViewModel(dataSource: NoteDatabaseDao) : ViewModel() {
     val navigateToTemplatePreview: LiveData<Boolean?>
         get() = _navigateToTemplatePreview
 
-    fun doneNavigating() {
+    val _navigateToEditNote = MutableLiveData<Long?>()
+    val navigateToEditNote: LiveData<Long?>
+        get() = _navigateToEditNote
+
+    fun doneNavigatingToTemplatePreview() {
         _navigateToTemplatePreview.value = null
     }
 
-    fun startNavigation(){
+    fun startNavigationToTemplatePreview(){
         _navigateToTemplatePreview.value = true
+    }
+
+    fun doneNavigatingToEditNote() {
+        _navigateToEditNote.value = null
+    }
+
+    fun startNavigationToEditNote(noteId: Long){
+        _navigateToEditNote.value = noteId
     }
 
     val templates = database.getAllTemplates()
@@ -36,21 +47,27 @@ class TemplateViewModel(dataSource: NoteDatabaseDao) : ViewModel() {
    fun onSelectTemplateItemClicked( id: Long){
        templateId = id
        completeTemplateSelected = CompleteTemplate()
+       startNavigationToTemplatePreview()
    }
 
     inner class CompleteTemplate(){
-        lateinit var template: Template
-        lateinit var templateEvents: List<TemplateEvent>
-        val templateEventsLive = MutableLiveData<List<TemplateEvent>>()
-        init {
-            viewModelScope.launch {
-               template = database.getTemplate(templateId)
-                templateEvents = database.getEventsSelection(templateId)
-                templateEventsLive.value = templateEvents
-                startNavigation()
-            }
-        }
+        val template: LiveData<Template> = database.getTemplate(templateId)
+        val templateEvents: LiveData<List<TemplateEvent>> = database.getEventsSelection(templateId)
+       /* val templateName = Transformations.map(template){template ->
+            template.templateName
+
+        }*/
     }
+
+
+    fun createNote(){
+        //TODO implement
+        CreateNote(this, templateId, database){ noteId ->
+            startNavigationToEditNote(noteId)
+        }
+
+    }
+
 }
 
 

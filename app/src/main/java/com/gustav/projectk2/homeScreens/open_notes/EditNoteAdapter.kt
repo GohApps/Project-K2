@@ -1,32 +1,38 @@
 package com.gustav.projectk2.homeScreens.open_notes
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.gustav.projectk2.EditNoteClickListener
 import com.gustav.projectk2.ItemClickListener
-import com.gustav.projectk2.database.Note
+import com.gustav.projectk2.database.NoteEvent
 import com.gustav.projectk2.databinding.ListItemEditNoteBinding
-import com.gustav.projectk2.databinding.ListItemNotePreviewBinding
 
-class NoteAdapter(val clickListener: ItemClickListener) : ListAdapter<Note, NoteAdapter.ViewHolder>(NoteDiffCallback()) {
+class EditNoteAdapter(val clickListener: EditNoteClickListener) : ListAdapter<NoteEvent, EditNoteAdapter.ViewHolder>(EditNoteDiffCallback()) {
+
+    var TAG = "GustavsMessage"
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d(TAG,"onbind")
         val item = getItem(position)
         holder.bind(item, clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        Log.d(TAG,"oncreate")
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ListItemNotePreviewBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ListItemEditNoteBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(
-            item: Note,
-            clickListener: ItemClickListener
+            item: NoteEvent,
+            clickListener: EditNoteClickListener
         ) {
-            binding.note = item
+            binding.noteEvent = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }
@@ -34,7 +40,7 @@ class NoteAdapter(val clickListener: ItemClickListener) : ListAdapter<Note, Note
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemNotePreviewBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemEditNoteBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
@@ -42,12 +48,12 @@ class NoteAdapter(val clickListener: ItemClickListener) : ListAdapter<Note, Note
 }
 
 
-class NoteDiffCallback : DiffUtil.ItemCallback<Note>() {
-    override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
-        return oldItem.noteId == newItem.noteId
+class EditNoteDiffCallback : DiffUtil.ItemCallback<NoteEvent>() {
+    override fun areItemsTheSame(oldItem: NoteEvent, newItem: NoteEvent): Boolean {
+        return oldItem.noteEventId == newItem.noteEventId
     }
 
-    override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
+    override fun areContentsTheSame(oldItem: NoteEvent, newItem: NoteEvent): Boolean {
         return oldItem == newItem
     }
 }

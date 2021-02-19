@@ -1,56 +1,98 @@
 package com.gustav.projectk2.homeScreens.open_notes
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.gustav.projectk2.database.NoteDatabaseDao
-import com.gustav.projectk2.database.Template
-import com.gustav.projectk2.database.TemplateEvent
+import androidx.lifecycle.*
+import androidx.lifecycle.Observer
+import com.gustav.projectk2.database.DatabaseNoteDao
+import com.gustav.projectk2.database.NoteEvent
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
-class OpenNoteViewModel(dataSource: NoteDatabaseDao, private val id: Long = -1) : ViewModel() {
+class OpenNoteViewModel(dataSource: DatabaseNoteDao, val noteId: Long = -1) : ViewModel() {
 
     var TAG = "GustavsMessage"
 
     val database = dataSource
-    lateinit var completeTemplateSelected: CompleteTemplate
 
-    var templateId: Long = 0
+    val note = database.getNote(noteId)
 
-    val _navigateToTemplatePreview = MutableLiveData<Boolean?>()
-    val navigateToTemplatePreview: LiveData<Boolean?>
-        get() = _navigateToTemplatePreview
-
-    fun doneNavigating() {
-        _navigateToTemplatePreview.value = null
+    val noteStartedFormatted = Transformations.map(note){ note->
+        "Opened ${SimpleDateFormat("MMM dd,yyyy HH:mm").format(Date(note.startTimeMilli))}"
     }
 
-    fun startNavigation(){
-        _navigateToTemplatePreview.value = true
+    val _closeEditNote = MutableLiveData<Boolean?>()
+    val closeEditNote: LiveData<Boolean?>
+        get() = _closeEditNote
+
+    fun startClosing(){
+        _closeEditNote.value = true
     }
 
-    val notes = database.getAllNotes()
+    fun doneClosing(){
+        _closeEditNote.value = false
+    }
 
-   fun onSelectNoteItemClicked(id: Long){
-       templateId = id
-       completeTemplateSelected = CompleteTemplate()
-   }
-
-    inner class CompleteTemplate(){
-        lateinit var template: Template
-        lateinit var templateEvents: List<TemplateEvent>
-        val templateEventsLive = MutableLiveData<List<TemplateEvent>>()
-        init {
-            viewModelScope.launch {
-               template = database.getTemplate(templateId)
-                templateEvents = database.getEventsSelection(templateId)
-                templateEventsLive.value = templateEvents
-                startNavigation()
-            }
+    val noteLastEditedFormatted = Transformations.map(note){
+        when (it.latestEditTimeMilli){
+            0.toLong() -> ""
+            else -> "Last edited ${SimpleDateFormat("MMM dd,yyyy HH:mm").format(Date(it.latestEditTimeMilli))} "
         }
     }
+
+    fun fileNote(){
+        viewModelScope.launch {
+            note.value?.open = false
+            database.updateNote(note.value)
+            startClosing()
+        }
+
+    }
+
+    val events = database.getEventsSelection(noteId)
+
+    fun setEventStartedTime(eventId: Long) {
+        val stamp = System.currentTimeMillis()
+        viewModelScope.launch {
+            database.updateEventStartTime(eventId, stamp)
+            database.updateLastEdited(noteId, stamp)
+        }
+    }
+
+    fun setEventCompletedTime(eventId: Long){
+        val stamp = System.currentTimeMillis()
+        viewModelScope.launch {
+            database.updateEventDoneTime(eventId, stamp)
+            database.updateLastEdited(noteId, stamp)
+        }
+
+    }
+
+    init {
+        Log.d(TAG, "templateiiiiid $noteId" )
+
+    }
+
+    val notes = database.getAllOpenNotes()
+
+   fun onSelectNoteItemClicked(id: Long){
+       Log.d(TAG, "templateid $id" )
+   }
+
+    val test : LiveData<Boolean> = Transformations.map(events){
+       shouldShow(it)
+    }
+
+    fun shouldShow(events: List<NoteEvent>):Boolean{
+        events.forEach(){
+            if(it.endTimeMilli.toString().length < 3){
+                return false
+            }
+        }
+        return true
+    }
+
+
 }
 
 

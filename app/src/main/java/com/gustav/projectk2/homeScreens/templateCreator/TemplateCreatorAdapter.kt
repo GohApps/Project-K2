@@ -3,6 +3,7 @@ package com.gustav.projectk2.homeScreens.templateCreator
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gustav.projectk2.database.TemplateEvent
@@ -12,7 +13,7 @@ import java.util.*
 class TemplateCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), MoveSwipeListener {
 
     var TAG = "GustavsMessage"
-    var data =  mutableListOf<TemplateEvent>()
+    var data =  listOf<TemplateEvent>()
         set(value) {
 
             Log.d(TAG, "init adapter data ${data.size}")

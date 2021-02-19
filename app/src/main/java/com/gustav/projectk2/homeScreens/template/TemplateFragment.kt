@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.gustav.projectk2.ItemClickLIstener
+import com.gustav.projectk2.ItemClickListener
 import com.gustav.projectk2.R
 import com.gustav.projectk2.database.NoteDatabase
 import com.gustav.projectk2.databinding.FragmentTemplateBinding
@@ -25,25 +25,22 @@ class TemplateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val binding: FragmentTemplateBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_template, container, false)
 
         val application = requireNotNull(this.activity).application
 
 
-        val dataSource = NoteDatabase.getInstance(application).noteDatabaseDao
+        val dataSource = NoteDatabase.getInstance(application).databaseTemplateDao
         val viewModelFactory = TemplateViewModelFactory(dataSource)
 
         val templateViewModel =
             ViewModelProvider(
                 requireActivity(), viewModelFactory).get(TemplateViewModel::class.java)
 
-        // To use the View Model with data binding, you have to explicitly
-        // give the binding object a reference to it.
         binding.templateViewModel = templateViewModel
 
-        val adapter = TemplateAdapter(ItemClickLIstener { templateId ->
+        val adapter = TemplateAdapter(ItemClickListener { templateId ->
             templateViewModel.onSelectTemplateItemClicked(templateId)
         })
         binding.templatesRv.adapter = adapter
@@ -59,7 +56,7 @@ class TemplateFragment : Fragment() {
         templateViewModel.navigateToTemplatePreview.observe(viewLifecycleOwner, Observer { shouldNavigate ->
             shouldNavigate?.let {
                 this.findNavController().navigate(HomeViewPagerFragmentDirections.actionHomeViewPagerFragmentToTemplatePreviewActionsFragment())
-                templateViewModel.doneNavigating()
+                templateViewModel.doneNavigatingToTemplatePreview()
             }
 
         })

@@ -16,18 +16,15 @@ class SPLASH : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
 
         Handler().postDelayed({
 
-           // findNavController().navigate(R.id.action_SPLASH_to_viewPagerFragment)
             if(isBoardingFinished()){
                 findNavController().navigate(R.id.action_SPLASH_to_homeFragment)
             }
             else {
                 findNavController().navigate(R.id.action_SPLASH_to_viewPagerFragment)
             }
-
 
         }, 100)
 

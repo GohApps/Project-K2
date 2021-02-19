@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
 import com.gustav.projectk2.R
 import com.gustav.projectk2.ViewPagerAdapter
+import com.gustav.projectk2.homeScreens.filed_notes.FiledNotesFragment
 import com.gustav.projectk2.homeScreens.open_notes.OpenNotesFragment
 import com.gustav.projectk2.homeScreens.template.TemplateFragment
 import kotlinx.android.synthetic.main.fragment_view_pager.view.*
@@ -21,7 +22,6 @@ class HomeViewPagerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_view_pager, container, false)
         val fragmentList = arrayListOf<Fragment>(
             TemplateFragment(),
@@ -35,6 +35,8 @@ class HomeViewPagerFragment : Fragment() {
             lifecycle
         )
 
+        view.viewPager.offscreenPageLimit = 2
+        
         view.viewPager.adapter = adapter
 
         TabLayoutMediator(view.tabLayout, view.viewPager,
@@ -43,7 +45,6 @@ class HomeViewPagerFragment : Fragment() {
                         0 -> { tab.text = "Templates"}
                         1 -> { tab.text = "Open notes"}
                         2 -> { tab.text = "Filed notes"}
-
                     }
                 }).attach()
 

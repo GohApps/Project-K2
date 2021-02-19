@@ -24,11 +24,6 @@ import com.google.android.material.chip.Chip
 import com.gustav.projectk2.database.Template
 import com.gustav.projectk2.database.TemplateEvent
 
-
-
-
-
-
 @BindingAdapter("templateNameString")
 fun TextView.setEventNameString(item: Template) {
     text = item.templateName

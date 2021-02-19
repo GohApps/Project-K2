@@ -1,7 +1,6 @@
 package com.gustav.projectk2.homeScreens.templateCreator
 import android.os.Bundle
 import android.view.*
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -13,9 +12,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.gustav.projectk2.R
 import com.gustav.projectk2.database.NoteDatabase
 import com.gustav.projectk2.databinding.FragmentNewTemplateBinding
-import com.gustav.projectk2.databinding.NewTemplateActionLayoutBinding
-import kotlinx.android.synthetic.main.new_template_action_layout.*
-import kotlinx.android.synthetic.main.new_template_action_layout.view.*
 
 class NewTemplateFragment : Fragment() {
     var TAG = "GustavsMessage"
@@ -32,18 +28,14 @@ class NewTemplateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val binding: FragmentNewTemplateBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_new_template, container, false)
-
-
-       // val mergeBinding: NewTemplateActionLayoutBinding = NewTemplateActionLayoutBinding.bind(binding.root)
 
 
         binding.lifecycleOwner = this
 
         val application = requireNotNull(this.activity).application
-        val dataSource = NoteDatabase.getInstance(application).noteDatabaseDao
+        val dataSource = NoteDatabase.getInstance(application).databaseTemplateDao
         val viewModelFactory = NewTemplateViewModelFactory(dataSource)
 
          newTemplateViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(NewTemplateViewModel::class.java)
@@ -60,8 +52,6 @@ class NewTemplateFragment : Fragment() {
 
             }
         })
-
-        // Setup ItemTouchHelper
 
         val callback = MyItemTouchHelperCallback(listOf(newTemplateViewModel.moveSwipeListener,adapter),
                 ItemTouchHelper.UP.or(ItemTouchHelper.DOWN), ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT))

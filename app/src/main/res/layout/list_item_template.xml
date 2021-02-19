@@ -8,18 +8,17 @@
             type="com.gustav.projectk2.database.Template" />
         <variable
             name="clickListener"
-            type="com.gustav.projectk2.ItemClickLIstener" />
+            type="com.gustav.projectk2.ItemClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
+        style="@style/myCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        app:contentPadding="8dp"
-        app:cardBackgroundColor="@color/teal_200"
-        app:cardCornerRadius="15dp">
+       >
 
         <LinearLayout
             android:layout_width="match_parent"

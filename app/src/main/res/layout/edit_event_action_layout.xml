@@ -7,7 +7,7 @@
     <data>
         <variable
             name="action"
-            type="com.gustav.projectk2.homeScreens.templateCreator.NewTemplateViewModel" />
+            type="com.gustav.projectk2.homeScreens.open_notes.OpenNoteViewModel" />
     </data>
 
     <LinearLayout
@@ -19,6 +19,7 @@
         android:clipToPadding="false"
         android:layout_gravity="end"
         android:clipChildren="false">
+
 
         <FrameLayout
             android:layout_width="48dp"
@@ -61,16 +62,17 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:enabled="@{!action.templateName.toString().isEmpty() &amp;&amp; action.eventsLiveData.size()>0 }"
+                android:enabled="@{action.test}"
                 android:clickable="true"
+                android:onClick="@{() -> action.fileNote()}"
                 android:focusable="true"
-                android:background="@drawable/button_ripple_save"
+                android:background="@drawable/button_ripple_check"
                 android:gravity="center" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="save"
+                android:text="file"
                 android:textColor="?attr/appbar_text_color"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="3dp"

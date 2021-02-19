@@ -2,10 +2,10 @@ package com.gustav.projectk2.homeScreens.template
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.gustav.projectk2.database.NoteDatabaseDao
+import com.gustav.projectk2.database.DatabaseTemplateDao
 
 class TemplateViewModelFactory(
-        private val dataSource: NoteDatabaseDao
+        private val dataSource: DatabaseTemplateDao
     ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

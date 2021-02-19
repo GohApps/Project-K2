@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View" />
         <variable
             name="templateViewModel"
             type="com.gustav.projectk2.homeScreens.template.TemplateViewModel" />
@@ -34,6 +34,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="open as note"
+            android:onClick="@{(v) -> templateViewModel.createNote()}"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="TemplateName"
+            android:text='@{templateViewModel.completeTemplateSelected.template.templateName}'
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -65,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:ellipsize="end"
+                android:visibility="@{templateViewModel.completeTemplateSelected.template.flexTime ? View.VISIBLE : View.GONE}"
                 android:text="Flexible times"
                 app:chipIcon="@drawable/ic_baseline_check_circle_outline_24">
 
@@ -75,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:text="Additional events enabled"
-
+                android:visibility="@{templateViewModel.completeTemplateSelected.template.additionalEvents ? View.VISIBLE : View.GONE}"
                 app:chipIcon="@drawable/ic_baseline_check_circle_outline_24">
 
             </com.google.android.material.chip.Chip>

@@ -4,11 +4,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.gustav.projectk2.ItemClickLIstener
+import com.gustav.projectk2.ItemClickListener
 import com.gustav.projectk2.database.Template
 import com.gustav.projectk2.databinding.ListItemTemplateBinding
 
-class TemplateAdapter(val clickListener: ItemClickLIstener) : ListAdapter<Template, TemplateAdapter.ViewHolder>(TemplateDiffCallback()) {
+class TemplateAdapter(val clickListener: ItemClickListener) : ListAdapter<Template, TemplateAdapter.ViewHolder>(TemplateDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -22,7 +22,7 @@ class TemplateAdapter(val clickListener: ItemClickLIstener) : ListAdapter<Templa
     class ViewHolder private constructor(val binding: ListItemTemplateBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(
             item: Template,
-            clickListener: ItemClickLIstener
+            clickListener: ItemClickListener
         ) {
             binding.template = item
             binding.clickListener = clickListener

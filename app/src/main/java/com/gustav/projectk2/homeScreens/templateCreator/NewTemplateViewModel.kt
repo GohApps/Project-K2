@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
-import com.gustav.projectk2.database.NoteDatabaseDao
+import com.gustav.projectk2.database.DatabaseTemplateDao
 import com.gustav.projectk2.database.Template
 import com.gustav.projectk2.database.TemplateEvent
 import kotlinx.coroutines.launch
 import java.util.*
 
 class NewTemplateViewModel (
-     dataSource: NoteDatabaseDao) : ViewModel() {
+     dataSource: DatabaseTemplateDao) : ViewModel() {
 
     val database = dataSource
     var TAG = "GustavsMessage"
@@ -84,7 +84,7 @@ class NewTemplateViewModel (
             template.flexTime = flexibleTime.value!!
             var templateId:Long = database.insertTemplate(template)
             events.forEach{ it.templateId = templateId}
-            database.insertEvents(events)
+            database.insertTemplateEvents(events)
             resetAllFields()
         }
     }

@@ -66,14 +66,18 @@
         android:id="@+id/templatePreviewActionsFragment"
         android:name="com.gustav.projectk2.homeScreens.template.TemplatePreviewActionsFragment"
         android:label="fragment_template_preview_actions"
-        tools:layout="@layout/fragment_template_preview_actions" />
+        tools:layout="@layout/fragment_template_preview_actions" >
+        <action
+            android:id="@+id/action_templatePreviewActionsFragment_to_editNoteFragment"
+            app:destination="@id/editNoteFragment" />
+    </dialog>
     <fragment
         android:id="@+id/editNoteFragment"
         android:name="com.gustav.projectk2.homeScreens.open_notes.EditNoteFragment"
         android:label="fragment_edit_note"
         tools:layout="@layout/fragment_edit_note" >
         <argument
-            android:name="templateId"
+            android:name="noteId"
             app:argType="long" />
     </fragment>
 </navigation>

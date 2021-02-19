@@ -21,8 +21,7 @@ class NewTemplateEventFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-       // return inflater.inflate(R.layout.fragment_new_event, container, false)
+
         val binding: FragmentNewEventBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_new_event, container, false)
 
@@ -38,20 +37,17 @@ class NewTemplateEventFragment : BottomSheetDialogFragment() {
             bottomSheet?.let {
                 val behavior = BottomSheetBehavior.from(it)
                 behavior.peekHeight = 1000000
-                // any other behavior modification here
             }
         }
 
         val application = requireNotNull(this.activity).application
-        val dataSource = NoteDatabase.getInstance(application).noteDatabaseDao
+        val dataSource = NoteDatabase.getInstance(application).databaseTemplateDao
         val viewModelFactory = NewTemplateViewModelFactory(dataSource)
 
         val newTemplateViewModel =
             ViewModelProvider(
                 requireActivity(), viewModelFactory).get(NewTemplateViewModel::class.java)
 
-        // To use the View Model with data binding, you have to explicitly
-        // give the binding object a reference to it.
         binding.newTemplateViewModel = newTemplateViewModel
 
         binding.amount.setOnCheckedChangeListener{ buttonView, isChecked ->
