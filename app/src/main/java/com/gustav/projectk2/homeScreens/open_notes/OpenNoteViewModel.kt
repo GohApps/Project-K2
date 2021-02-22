@@ -2,7 +2,6 @@ package com.gustav.projectk2.homeScreens.open_notes
 
 import android.util.Log
 import androidx.lifecycle.*
-import androidx.lifecycle.Observer
 import com.gustav.projectk2.database.DatabaseNoteDao
 import com.gustav.projectk2.database.NoteEvent
 import kotlinx.coroutines.launch
@@ -15,7 +14,7 @@ class OpenNoteViewModel(dataSource: DatabaseNoteDao, val noteId: Long = -1) : Vi
 
     val database = dataSource
 
-    val note = database.getNote(noteId)
+    val note = database.getNoteLive(noteId)
 
     val noteStartedFormatted = Transformations.map(note){ note->
         "Opened ${SimpleDateFormat("MMM dd,yyyy HH:mm").format(Date(note.startTimeMilli))}"
@@ -49,7 +48,7 @@ class OpenNoteViewModel(dataSource: DatabaseNoteDao, val noteId: Long = -1) : Vi
 
     }
 
-    val events = database.getEventsSelection(noteId)
+    val events = database.getEventsSelectionLive(noteId)
 
     fun setEventStartedTime(eventId: Long) {
         val stamp = System.currentTimeMillis()

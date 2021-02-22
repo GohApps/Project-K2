@@ -7,7 +7,7 @@
     <data>
         <variable
             name="action"
-            type="com.gustav.projectk2.homeScreens.open_notes.OpenNoteViewModel" />
+            type="com.gustav.projectk2.homeScreens.filed_notes.ShowFiledNoteViewModel" />
     </data>
 
     <LinearLayout
@@ -42,7 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+ event"
+                android:text="foo"
                 android:textColor="?attr/appbar_text_color"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="3dp"
@@ -62,17 +62,17 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:enabled="@{action.test}"
                 android:clickable="true"
-                android:onClick="@{() -> action.fileNote()}"
                 android:focusable="true"
-                android:background="@drawable/button_ripple_check"
+                android:background="@drawable/button_ripple_email"
                 android:gravity="center" />
+            <!--android:onClick="@{() -> action.fileNote()}"-->
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="file"
+                android:text="share"
                 android:textColor="?attr/appbar_text_color"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="3dp"

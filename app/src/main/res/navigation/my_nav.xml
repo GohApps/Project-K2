@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_homeViewPagerFragment_to_editNoteFragment"
             app:destination="@id/editNoteFragment" />
+        <action
+            android:id="@+id/action_homeViewPagerFragment_to_showFiledNoteFragment"
+            app:destination="@id/showFiledNoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/newTemplateFragment"
@@ -76,6 +79,15 @@
         android:name="com.gustav.projectk2.homeScreens.open_notes.EditNoteFragment"
         android:label="fragment_edit_note"
         tools:layout="@layout/fragment_edit_note" >
+        <argument
+            android:name="noteId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/showFiledNoteFragment"
+        android:name="com.gustav.projectk2.homeScreens.filed_notes.ShowFiledNoteFragment"
+        android:label="fragment_show_filed_note"
+        tools:layout="@layout/fragment_show_filed_note">
         <argument
             android:name="noteId"
             app:argType="long" />

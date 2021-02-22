@@ -55,7 +55,7 @@
             android:layout_height="48dp">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/saveTemplate"
+                android:id="@+id/addTemplate"
                 android:clipToPadding="false"
                 android:clipChildren="false"
                 android:layout_width="45dp"

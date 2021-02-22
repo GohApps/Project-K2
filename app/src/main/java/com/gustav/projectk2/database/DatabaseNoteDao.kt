@@ -11,7 +11,10 @@ interface DatabaseNoteDao {
 
 
     @Query("SELECT * from note_table WHERE noteId = :key")
-    fun getNote(key: Long): LiveData<Note>
+    fun getNoteLive(key: Long): LiveData<Note>
+
+    @Query("SELECT * from note_table WHERE noteId = :key")
+    suspend fun getNote(key: Long): Note
 
     @Update
     suspend fun updateNote(note: Note?)
@@ -38,7 +41,10 @@ interface DatabaseNoteDao {
     fun getAllFiledNotes(): LiveData<List<Note>>
 
     @Query("SELECT * FROM note_event_table WHERE note_id = :key")
-    fun getEventsSelection(key: Long): LiveData<List<NoteEvent>>
+    fun getEventsSelectionLive(key: Long): LiveData<List<NoteEvent>>
+
+    @Query("SELECT * FROM note_event_table WHERE note_id = :key")
+    suspend fun getEventsSelection(key: Long): List<NoteEvent>
 
 
 }

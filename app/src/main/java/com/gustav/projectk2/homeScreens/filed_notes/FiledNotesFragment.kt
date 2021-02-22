@@ -15,6 +15,7 @@ import com.gustav.projectk2.R
 import com.gustav.projectk2.database.NoteDatabase
 import com.gustav.projectk2.databinding.FragmentFiledNotesBinding
 import com.gustav.projectk2.homeScreens.HomeViewPagerFragmentDirections
+import com.gustav.projectk2.homeScreens.open_notes.EditNoteFragmentArgs
 import com.gustav.projectk2.homeScreens.open_notes.NoteAdapter
 
 class FiledNotesFragment : Fragment() {
@@ -32,8 +33,10 @@ class FiledNotesFragment : Fragment() {
 
 
         val dataSource = NoteDatabase.getInstance(application).databaseNoteDao
+
         val viewModelFactory = FiledNoteViewModelFactory(dataSource
         )
+
 
         val filedNotesViewModel =
                 ViewModelProvider(
@@ -43,6 +46,7 @@ class FiledNotesFragment : Fragment() {
 
         val adapter = NoteAdapter(ItemClickListener { noteId ->
             filedNotesViewModel.onSelectNoteItemClicked(noteId)
+            this.findNavController().navigate(HomeViewPagerFragmentDirections.actionHomeViewPagerFragmentToShowFiledNoteFragment(noteId))
 
         })
         binding.filedNotesRv.adapter = adapter

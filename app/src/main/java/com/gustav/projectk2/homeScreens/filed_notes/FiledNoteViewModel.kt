@@ -3,8 +3,6 @@ package com.gustav.projectk2.homeScreens.filed_notes
 import android.util.Log
 import androidx.lifecycle.*
 import com.gustav.projectk2.database.DatabaseNoteDao
-import com.gustav.projectk2.database.NoteEvent
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -14,7 +12,7 @@ class FiledNoteViewModel(dataSource: DatabaseNoteDao, val noteId: Long = -1) : V
 
     val database = dataSource
 
-    val note = database.getNote(noteId)
+    val note = database.getNoteLive(noteId)
 
     val noteStartedFormatted = Transformations.map(note){ note->
         "Opened ${SimpleDateFormat("MMM dd,yyyy HH:mm").format(Date(note.startTimeMilli))}"
@@ -39,7 +37,7 @@ class FiledNoteViewModel(dataSource: DatabaseNoteDao, val noteId: Long = -1) : V
         }
     }
 
-    val events = database.getEventsSelection(noteId)
+    val events = database.getEventsSelectionLive(noteId)
 
     init {
         Log.d(TAG, "templateiiiiid $noteId" )

@@ -68,7 +68,7 @@ class NewTemplateFragment : Fragment() {
             findNavController().navigate(R.id.action_newTemplateFragment_to_newEventFragment2)
         }
 
-        binding.actionLayout.saveTemplate.setOnClickListener{
+        binding.actionLayout.addTemplate.setOnClickListener{
             Toast.makeText(requireContext(), "Template added", Toast.LENGTH_SHORT).show()
             newTemplateViewModel.addTemplate()
             requireActivity().onBackPressed()
