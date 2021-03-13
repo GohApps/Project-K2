@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.gustav.projectk2.homeScreens.open_notes.addEvent.FreestyleEventFragment">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.gustav.projectk2.homeScreens.open_notes.addEvent.FreestyleEventViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_skipCollapsed="true"
+       >
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutEditTextTextPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@={vm.name}"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+             >
+            <requestFocus />
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:hint="Add note"
+            app:layout_constraintTop_toBottomOf="@+id/layoutEditTextTextPersonName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/infoField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={vm.eventNote}"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:textColor="@drawable/outlined_button"
+            android:enabled="@{!vm.name.toString().isEmpty}"
+            app:layout_constraintTop_toBottomOf="@id/outlinedTextField"
+            app:layout_constraintEnd_toStartOf="@+id/insert_event"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:onClick="@{()->vm.createEventByStart()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteY="619dp" />
+
+        <Button
+            android:id="@+id/insert_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:enabled="@{!vm.name.toString().isEmpty}"
+            app:layout_constraintTop_toBottomOf="@id/outlinedTextField"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:onClick="@{()->vm.createEventAndDone()}"
+            app:layout_constraintStart_toEndOf="@+id/button"
+            tools:layout_editor_absoluteY="615dp" />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

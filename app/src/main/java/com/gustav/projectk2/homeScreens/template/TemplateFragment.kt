@@ -30,6 +30,8 @@ class TemplateFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
+        binding.lifecycleOwner = this
+
 
         val dataSource = NoteDatabase.getInstance(application).databaseTemplateDao
         val viewModelFactory = TemplateViewModelFactory(dataSource)
@@ -46,6 +48,9 @@ class TemplateFragment : Fragment() {
         binding.templatesRv.adapter = adapter
 
         templateViewModel.templates.observe(viewLifecycleOwner, Observer {
+
+            if(it.isEmpty())findNavController().navigate(R.id.action_templateFragment_to_templateOrFreestyleFragment)
+
             it?.let {
                 Log.d(TAG, "emplates.observe(viewLifecyc ${it.size} $it" )
                 adapter.submitList(it)
@@ -55,14 +60,14 @@ class TemplateFragment : Fragment() {
 
         templateViewModel.navigateToTemplatePreview.observe(viewLifecycleOwner, Observer { shouldNavigate ->
             shouldNavigate?.let {
-                this.findNavController().navigate(HomeViewPagerFragmentDirections.actionHomeViewPagerFragmentToTemplatePreviewActionsFragment())
+                this.findNavController().navigate(TemplateFragmentDirections.actionTemplateFragmentToTemplatePreviewActionsFragment())
                 templateViewModel.doneNavigatingToTemplatePreview()
             }
 
         })
 
-        binding.newTemplateButton.setOnClickListener {
-            findNavController().navigate(R.id.action_homeViewPagerFragment_to_newTemplateFragment)
+        binding.newNote.setOnClickListener {
+            findNavController().navigate(R.id.action_templateFragment_to_templateOrFreestyleFragment)
         }
         return binding.root    }
 }

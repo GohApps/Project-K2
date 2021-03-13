@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
         <data>
             <import type="android.view.View" />
-
             <variable
                 name="noteEvent"
                 type="com.gustav.projectk2.database.NoteEvent" />
@@ -13,13 +12,12 @@
                 type="com.gustav.projectk2.EditNoteClickListener" />
         </data>
 
-
     <androidx.cardview.widget.CardView
         style="@style/myCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         >
 
@@ -27,60 +25,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <TextView
                 android:id="@+id/eventName"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:noteEventNameString="@{noteEvent}"
                 app:layout_constraintBottom_toTopOf="@+id/note_textview"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                app:noteEventNameString="@{noteEvent}" />
 
             <TextView
                 android:id="@+id/note_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Note"
-                android:onClick="@{(v) -> clickListener.onClicked(noteEvent.noteEventId, v)}"
-                android:visibility="@{noteEvent.isNote ? View.VISIBLE : View.GONE}"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@{noteEvent.endTimeMilli == null ? @drawable/bg_radius_solid : null}"
+                android:onClick="@{(v) -> noteEvent.endTimeMilli == null ? clickListener.onClicked(noteEvent.noteEventId, v) : null}"
+                android:padding="@{noteEvent.endTimeMilli == null ? @dimen/backgroundPaddingActive : @dimen/backgroundPaddingNormal}"
+                android:drawablePadding="6dp"
+                android:drawableLeft='@{noteEvent.endTimeMilli == null &amp;&amp; (noteEvent.note == null || noteEvent.note.equals("")) ? @drawable/ic_baseline_add_circle_outline_24 : null }'
+                android:singleLine="false"
+                android:visibility='@{noteEvent.isNote &amp;&amp; !(noteEvent.endTimeMilli != null &amp;&amp; noteEvent.note.equals("")) ? View.VISIBLE : View.GONE}'
                 app:layout_constraintBottom_toTopOf="@+id/amount_textview"
+                app:layout_constraintEnd_toStartOf="@+id/done"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventName" />
+                app:layout_constraintTop_toBottomOf="@+id/eventName"
+                app:setNoteText="@{noteEvent}" />
 
-            <EditText
+            <TextView
                 android:id="@+id/amount_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Amount"
-                android:visibility="@{noteEvent.isAmount ? View.VISIBLE : View.GONE}"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@{noteEvent.endTimeMilli == null ? @drawable/bg_radius_solid : null}"
+                android:onClick="@{(v) -> noteEvent.endTimeMilli == null ? clickListener.onClicked(noteEvent.noteEventId, v) : null}"
+                android:padding="@{noteEvent.endTimeMilli == null ? @dimen/backgroundPaddingActive : @dimen/backgroundPaddingNormal}"
+                android:paddingEnd="10dp"
+                android:drawablePadding="6dp"
+                android:singleLine="false"
+                android:drawableLeft='@{noteEvent.endTimeMilli == null &amp;&amp; (noteEvent.amount == null || noteEvent.amount == null) ? @drawable/ic_baseline_add_circle_outline_24 : null }'
+                android:visibility='@{noteEvent.isAmount &amp;&amp; !(noteEvent.endTimeMilli != null &amp;&amp; noteEvent.amount == null) ? View.VISIBLE : View.GONE}'
                 app:layout_constraintBottom_toTopOf="@+id/position_textview"
+                app:layout_constraintEnd_toStartOf="@+id/start"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/note_textview" />
-
-            <TextView
-                android:id="@+id/unit_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{noteEvent.unit}"
-                android:visibility="@{noteEvent.isAmount ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="@+id/amount_textview"
-                app:layout_constraintStart_toEndOf="@+id/amount_textview"
-                app:layout_constraintTop_toTopOf="@+id/amount_textview" />
+                app:layout_constraintTop_toBottomOf="@+id/note_textview"
+                app:setAmountText="@{noteEvent}" />
 
             <TextView
                 android:id="@+id/position_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Position WGS"
                 android:visibility="@{noteEvent.isPosition ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toTopOf="@+id/start_time"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/amount_textview" />
+                app:layout_constraintTop_toBottomOf="@+id/amount_textview"
+                app:setPositionText="@{noteEvent}"/>
 
             <Button
                 android:id="@+id/start"
@@ -121,13 +126,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:setDoneTime="@{noteEvent}"
-                android:visibility="@{(noteEvent.endTimeMilli != 0) ? View.VISIBLE : View.GONE}"
+                android:visibility="@{(noteEvent.endTimeMilli != null) ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/start_time" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.cardview.widget.CardView>
 </layout>

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="action"
             type="com.gustav.projectk2.homeScreens.open_notes.OpenNoteViewModel" />
@@ -25,6 +26,7 @@
             android:layout_width="48dp"
             android:layout_gravity="center"
             android:orientation="vertical"
+            android:visibility="@{action.note.additionalEvents ? View.VISIBLE : View.GONE}"
             android:layout_height="48dp">
 
             <androidx.appcompat.widget.AppCompatButton
@@ -56,13 +58,13 @@
             android:layout_height="48dp">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/share"
+                android:id="@+id/file"
                 android:clipToPadding="false"
                 android:clipChildren="false"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:enabled="@{action.test}"
+                android:enabled="@{action.shouldShow}"
                 android:clickable="true"
                 android:onClick="@{() -> action.fileNote()}"
                 android:focusable="true"

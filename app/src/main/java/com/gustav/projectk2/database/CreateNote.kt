@@ -23,7 +23,6 @@ class CreateNote(val context: TemplateViewModel, val templateId: Long, val datab
         val template = database.getTemplateSync(templateId)
         val note = Note()
         note.noteName = template.templateName
-        note.open = true
         note.additionalEvents = template.additionalEvents
         note.templateId = templateId
         note.flexTime = template.flexTime

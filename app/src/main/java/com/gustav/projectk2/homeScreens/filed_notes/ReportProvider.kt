@@ -12,7 +12,8 @@ class ReportProvider {
 
         var TAG = "GustavsMessage"
 
-        public fun getNoteStrings(note: Note, events: List<NoteEvent>) : MutableList<String?> {
+        public fun
+                getNoteStrings(note: Note, events: List<NoteEvent>) : MutableList<String?> {
            var report = mutableListOf<String?>()
             report.add(getHtmlString(note, events))
             report.add(getSimpleString(note, events))
@@ -29,10 +30,11 @@ class ReportProvider {
                 events.forEach {event ->
                     eventsTable += event.eventName.toString().toUpperCase()+"<br>"
                     if(event.isNote && !event.note.isEmpty()) eventsTable += event.note+"<br>"
-                    if(event.isAmount&& !event.amount.toString().isEmpty()) eventsTable += getFirstCellWithSpacing("Amount") + event.amount.toString() + " " + event.unit+"<br>"
+                    if(event.amount == null) Log.d(TAG, "noteIsNull")
+                    if(event.isAmount && event.amount != null && event.amount.toString().isNotEmpty()) eventsTable += getFirstCellWithSpacing("Amount") + event.amount.toString() + " " + event.unit+"<br>"
                     if(event.isPosition&& !event.position.isEmpty()) eventsTable += getFirstCellWithSpacing("Position")+ event.position+"<br>"
                     if(event.startStop) eventsTable +=  getFirstCellWithSpacing("Start") + SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date(event.startTimeMilli))+ "<br>"
-                    eventsTable += getFirstCellWithSpacing("Done") + SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date(event.endTimeMilli))+ "<br><br>"
+                    eventsTable += getFirstCellWithSpacing("Done") + SimpleDateFormat("yyyy-MM-dd HH:mm").format(event.endTimeMilli?.let { Date(it) })+ "<br><br>"
                 }
 
             return titleAndInfo+eventsTable
@@ -47,10 +49,10 @@ class ReportProvider {
             events.forEach(){event ->
                  eventsTable += getHtmlTableRow("<b>${event.eventName}</b>", "")
                 if(event.isNote && !event.note.isEmpty()) eventsTable += getHtmlTableRow("Note", event.note)
-                if(event.isAmount&& !event.amount.toString().isEmpty()) eventsTable += getHtmlTableRow("Amount", event.amount.toString()+ " "+event.unit)
+                if(event.isAmount && event.amount != null && event.amount.toString().isNotEmpty()) eventsTable += getHtmlTableRow("Amount", event.amount.toString()+ " "+event.unit)
                 if(event.isPosition&& !event.position.isEmpty()) eventsTable += getHtmlTableRow("Position", event.position)
                 if(event.startStop) eventsTable += getHtmlTableRow("Start", SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date(event.startTimeMilli)))
-                eventsTable += getHtmlTableRow("Done", SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date(event.endTimeMilli)))
+                eventsTable += getHtmlTableRow("Done", SimpleDateFormat("yyyy-MM-dd HH:mm").format(event.endTimeMilli?.let { Date(it) }))
                 eventsTable += getHtmlTableRow("", "")
 
             }

@@ -4,35 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="templateViewModel"
             type="com.gustav.projectk2.homeScreens.template.TemplateViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".homeScreens.template.TemplateFragment">
 
-        <!-- TODO: Update blank fragment layout -->
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/templates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{templateViewModel.title}"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </com.google.android.material.textview.MaterialTextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/templatesRv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/templates">
+        </androidx.recyclerview.widget.RecyclerView>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/newTemplateButton"
+            android:id="@+id/newNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="8dp"
             android:clickable="true"
-            android:src="@android:drawable/ic_input_add" />
+            android:src="@android:drawable/ic_input_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-       <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/templatesRv"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-           >
 
-       </androidx.recyclerview.widget.RecyclerView>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

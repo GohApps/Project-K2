@@ -67,6 +67,14 @@ class TemplatePreviewActionsFragment : BottomSheetDialogFragment() {
 
         })
 
+
+        templateViewModel.shouldDismiss.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                dismiss()
+                templateViewModel.doneDismiss()
+            }
+        })
+
         templateViewModel.completeTemplateSelected.templateEvents.observe(viewLifecycleOwner,
             Observer {
                 adapter.data = it

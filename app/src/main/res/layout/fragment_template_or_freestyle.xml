@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".homeScreens.template.TemplateFragment"
+        android:paddingBottom="16dp">
+        <WebView
+            android:id="@+id/templates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp"
+            app:webViewUrl="@{@string/template_or_freestyle_html}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </WebView>
+        <Button
+            android:id="@+id/newTemplateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="new template"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/freestyleButton"
+            app:layout_constraintTop_toBottomOf="@id/templates"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="11dp" />
+        <Button
+            android:id="@+id/freestyleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="freestyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/templates"
+            app:layout_constraintStart_toEndOf="@+id/newTemplateButton"
+            tools:layout_editor_absoluteY="15dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

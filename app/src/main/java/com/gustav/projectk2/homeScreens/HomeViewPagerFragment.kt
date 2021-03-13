@@ -10,7 +10,6 @@ import com.gustav.projectk2.R
 import com.gustav.projectk2.ViewPagerAdapter
 import com.gustav.projectk2.homeScreens.filed_notes.FiledNotesFragment
 import com.gustav.projectk2.homeScreens.open_notes.OpenNotesFragment
-import com.gustav.projectk2.homeScreens.template.TemplateFragment
 import kotlinx.android.synthetic.main.fragment_view_pager.view.*
 
 class HomeViewPagerFragment : Fragment() {
@@ -24,7 +23,7 @@ class HomeViewPagerFragment : Fragment() {
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_view_pager, container, false)
         val fragmentList = arrayListOf<Fragment>(
-            TemplateFragment(),
+            SettingsEtcFragment(),
                 OpenNotesFragment(),
             FiledNotesFragment()
         )
@@ -39,11 +38,13 @@ class HomeViewPagerFragment : Fragment() {
         
         view.viewPager.adapter = adapter
 
+        view.viewPager.setCurrentItem(1,false)
+
         TabLayoutMediator(view.tabLayout, view.viewPager,
                 TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                     when (position) {
-                        0 -> { tab.text = "Templates"}
-                        1 -> { tab.text = "Open notes"}
+                        0 -> { tab.text = "etc"}
+                        1 -> { tab.text = "Notes"}
                         2 -> { tab.text = "Filed notes"}
                     }
                 }).attach()

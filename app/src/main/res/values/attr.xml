@@ -3,5 +3,8 @@
 
     <attr name="appbar_text_color" format="reference" />
     <attr name="myCardBackgroundColor" format="reference"/>
+    <attr name="iconColor" format="reference"/>
+
+
 
 </resources>

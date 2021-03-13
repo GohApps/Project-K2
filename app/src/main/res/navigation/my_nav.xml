@@ -38,17 +38,14 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeViewPagerFragment_to_newTemplateFragment"
-            app:destination="@id/newTemplateFragment" />
-        <action
-            android:id="@+id/action_homeViewPagerFragment_to_templatePreviewActionsFragment"
-            app:destination="@id/templatePreviewActionsFragment" />
-        <action
             android:id="@+id/action_homeViewPagerFragment_to_editNoteFragment"
             app:destination="@id/editNoteFragment" />
         <action
             android:id="@+id/action_homeViewPagerFragment_to_showFiledNoteFragment"
             app:destination="@id/showFiledNoteFragment" />
+        <action
+            android:id="@+id/action_homeViewPagerFragment_to_templateFragment"
+            app:destination="@id/templateFragment" />
     </fragment>
     <fragment
         android:id="@+id/newTemplateFragment"
@@ -82,6 +79,12 @@
         <argument
             android:name="noteId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_editNoteFragment_to_addNoteFragment"
+            app:destination="@id/addNoteFragment" />
+        <action
+            android:id="@+id/action_editNoteFragment_to_freestyleEventFragment2"
+            app:destination="@id/freestyleEventFragment2" />
     </fragment>
     <fragment
         android:id="@+id/showFiledNoteFragment"
@@ -92,4 +95,48 @@
             android:name="noteId"
             app:argType="long" />
     </fragment>
+    <dialog
+        android:id="@+id/addNoteFragment"
+        android:name="com.gustav.projectk2.homeScreens.open_notes.addNote.FragmentAddEventNote"
+        android:label="fragment_add_note"
+        tools:layout="@layout/fragment_add_note" >
+        <argument
+            android:name="eventId"
+            app:argType="long" />
+        <argument
+            android:name="viewId"
+            app:argType="integer" />
+    </dialog>
+    <fragment
+        android:id="@+id/templateFragment"
+        android:name="com.gustav.projectk2.homeScreens.template.TemplateFragment"
+        android:label="TemplateFragment" >
+        <action
+            android:id="@+id/action_templateFragment_to_templatePreviewActionsFragment"
+            app:destination="@id/templatePreviewActionsFragment" />
+        <action
+            android:id="@+id/action_templateFragment_to_templateOrFreestyleFragment"
+            app:destination="@id/templateOrFreestyleFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/templateOrFreestyleFragment"
+        android:name="com.gustav.projectk2.TemplateOrFreestyleFragment"
+        android:label="fragment_template_or_freestyle"
+        tools:layout="@layout/fragment_template_or_freestyle" >
+        <action
+            android:id="@+id/action_templateOrFreestyleFragment_to_newTemplateFragment"
+            app:destination="@id/newTemplateFragment" />
+        <action
+            android:id="@+id/action_templateOrFreestyleFragment_to_editNoteFragment"
+            app:destination="@id/editNoteFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/freestyleEventFragment2"
+        android:name="com.gustav.projectk2.homeScreens.open_notes.addEvent.FreestyleEventFragment"
+        android:label="fragment_freestyle_event"
+        tools:layout="@layout/fragment_freestyle_event" >
+        <argument
+            android:name="logId"
+            app:argType="long" />
+    </dialog>
 </navigation>

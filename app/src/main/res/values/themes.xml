@@ -3,6 +3,7 @@
     <style name="Theme.ProjectK2" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#BDB888</item>
+        <item name="colorAccent">#BDB888</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -14,6 +15,7 @@
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme.Light</item>
         <item name="myCardBackgroundColor">@color/white</item>
         <item name="chipStyle">@style/myChipStyle</item>
         <item name="appbar_text_color">@color/def_text_color</item>
@@ -29,5 +31,37 @@
         <item name="chipMinHeight">20dp</item>
         <item name="chipMinTouchTargetSize">24dp</item>
     </style>
+
+
+
+    <style name="Theme.btn" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/CustomButtonThemeOverlay</item>
+    </style>
+
+    <style name="CustomButtonThemeOverlay">
+        <item name="colorPrimary">@color/dark_grey</item>
+    </style>
+
+
+    <style name="BottomSheetDialogTheme.Light" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="colorPrimary">#BDB888</item>
+        <item name="colorAccent">#BDB888</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#E8CCB6</item>
+        <item name="colorSecondaryVariant">#002DB3</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="iconColor">@color/def_text_color</item>
+
+    </style>
+
+
+
 </resources>
 

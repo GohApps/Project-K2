@@ -17,11 +17,9 @@
         android:layout_height="match_parent"
         tools:context=".homeScreens.open_notes.EditNoteFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-
-
         <TextView
             android:id="@+id/noteName"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -53,13 +51,17 @@
             android:id="@+id/editEventRv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingBottom="8dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottomAppBarContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lastEdited" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/bottomAppBarContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

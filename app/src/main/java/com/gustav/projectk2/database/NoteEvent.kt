@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "note_event_table")
-data class NoteEvent (
+data class NoteEvent(
 
         @PrimaryKey(autoGenerate = true)
         var noteEventId: Long = 0L,
@@ -21,7 +21,7 @@ data class NoteEvent (
         var startTimeMilli: Long = 0,
 
         @ColumnInfo(name = "end_time_milli")
-        var endTimeMilli: Long = 0,
+        var endTimeMilli: Long? = null,
 
         @ColumnInfo(name = "is_note")
         var isNote: Boolean = false,
@@ -33,7 +33,7 @@ data class NoteEvent (
         var isAmount: Boolean = false,
 
         @ColumnInfo(name = "amount")
-        var amount: Long = 0,
+        var amount: Long? = null,
 
         @ColumnInfo(name = "unit")
         var unit: String = "",
@@ -42,7 +42,7 @@ data class NoteEvent (
         var isPosition: Boolean = false,
 
         @ColumnInfo(name = "position")
-        var position: String = "",
+        var position: String = "ff",
 
         @ColumnInfo(name = "is_start_stop")
         var startStop: Boolean = false

@@ -16,17 +16,18 @@
 
 package com.gustav.projectk2.homeScreens.open_notes
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.google.android.material.chip.Chip
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
+import androidx.lifecycle.Transformations
 import com.gustav.projectk2.database.Note
 import com.gustav.projectk2.database.NoteEvent
-import com.gustav.projectk2.database.Template
-import com.gustav.projectk2.database.TemplateEvent
+import com.gustav.projectk2.homeScreens.open_notes.addNote.AddEventNoteViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 var TAG = "GustavsMessage"
@@ -49,7 +50,7 @@ fun TextView.setStartTime(item: NoteEvent) {
 
 @BindingAdapter("setDoneTime")
 fun TextView.setDoneTime(item: NoteEvent) {
-    text = "Done ${SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date(item.endTimeMilli))}"
+    text = "Done ${SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date(item.endTimeMilli?:0))}"
 }
 
 @BindingAdapter("setStartEnabled")
@@ -59,12 +60,30 @@ fun Button.setStartEnabled(item: NoteEvent) {
 
 @BindingAdapter("setDoneEnabled")
 fun Button.setDoneEnabled(item: NoteEvent) {
-    if (item.endTimeMilli.toString().length <3){
+    if (item.endTimeMilli.toString().length <6){
         isEnabled = true
         if(item.startStop){
             Log.d(TAG, "if(item.startStop){" )
 
-            isEnabled = (item.startTimeMilli.toString().length > 3)
+            isEnabled = (item.startTimeMilli.toString().length > 6)
         }
     } else isEnabled = false
 }
+
+@BindingAdapter("setNoteText")
+fun TextView.noteText(item: NoteEvent) {
+    text =  if(item.note.isNullOrEmpty()) "Add note" else item.note
+
+
+}
+
+@BindingAdapter("setAmountText")
+fun TextView.amountText(item: NoteEvent) {
+    text = if (item.amount != null && item.amount!! > 0) "${item.amount.toString()} ${item.unit}" else "Set amount in ${item.unit}"
+}
+
+@BindingAdapter("setPositionText")
+fun TextView.positionText(item: NoteEvent) {
+    text =  item.position.toString()
+}
+

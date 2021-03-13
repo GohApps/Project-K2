@@ -1,13 +1,12 @@
 package com.gustav.projectk2.homeScreens.template
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.gustav.projectk2.database.DatabaseTemplateDao
 import com.gustav.projectk2.database.CreateNote
 import com.gustav.projectk2.database.Template
 import com.gustav.projectk2.database.TemplateEvent
+import kotlinx.coroutines.launch
 
 class TemplateViewModel(dataSource: DatabaseTemplateDao) : ViewModel() {
 
@@ -25,6 +24,19 @@ class TemplateViewModel(dataSource: DatabaseTemplateDao) : ViewModel() {
     val _navigateToEditNote = MutableLiveData<Long?>()
     val navigateToEditNote: LiveData<Long?>
         get() = _navigateToEditNote
+
+    val _shouldDismiss = MutableLiveData<Boolean?>()
+    val shouldDismiss: LiveData<Boolean?>
+        get() = _shouldDismiss
+
+    fun startDismiss(){
+        _shouldDismiss.value = true
+    }
+    fun doneDismiss() {
+        _shouldDismiss.value = null
+    }
+
+
 
     fun doneNavigatingToTemplatePreview() {
         _navigateToTemplatePreview.value = null
@@ -44,7 +56,9 @@ class TemplateViewModel(dataSource: DatabaseTemplateDao) : ViewModel() {
 
     val templates = database.getAllTemplates()
 
-   fun onSelectTemplateItemClicked( id: Long){
+    val title = Transformations.map(templates){ if(it.isNotEmpty())"Available templates" else "Add a template" }
+
+    fun onSelectTemplateItemClicked( id: Long){
        templateId = id
        completeTemplateSelected = CompleteTemplate()
        startNavigationToTemplatePreview()
@@ -53,11 +67,18 @@ class TemplateViewModel(dataSource: DatabaseTemplateDao) : ViewModel() {
     inner class CompleteTemplate(){
         val template: LiveData<Template> = database.getTemplate(templateId)
         val templateEvents: LiveData<List<TemplateEvent>> = database.getEventsSelection(templateId)
-       /* val templateName = Transformations.map(template){template ->
-            template.templateName
-
-        }*/
     }
+
+    fun deleteTemplate(){
+        completeTemplateSelected.template.value?.let { template ->
+
+            startDismiss()
+
+            viewModelScope.launch {
+                database.deleteTemplate(template)
+            }
+        }
+        }
 
 
     fun createNote(){

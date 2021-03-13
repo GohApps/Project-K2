@@ -1,5 +1,6 @@
 package com.gustav.projectk2.homeScreens.templateCreator
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +37,7 @@ class NewTemplateEventFragment : BottomSheetDialogFragment() {
 
             bottomSheet?.let {
                 val behavior = BottomSheetBehavior.from(it)
-                behavior.peekHeight = 1000000
+                behavior.peekHeight = Resources.getSystem().displayMetrics.heightPixels;
             }
         }
 

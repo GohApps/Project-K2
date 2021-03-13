@@ -15,7 +15,6 @@ import com.gustav.projectk2.R
 import com.gustav.projectk2.database.NoteDatabase
 import com.gustav.projectk2.databinding.FragmentFiledNotesBinding
 import com.gustav.projectk2.homeScreens.HomeViewPagerFragmentDirections
-import com.gustav.projectk2.homeScreens.open_notes.EditNoteFragmentArgs
 import com.gustav.projectk2.homeScreens.open_notes.NoteAdapter
 
 class FiledNotesFragment : Fragment() {
